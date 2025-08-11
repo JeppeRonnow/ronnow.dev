@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jinger — Robotics Portfolio</title>
+  <title>Jeppe Rønnow — Robotics engineering</title>
+  <link rel="icon" type="image/png" href="logocirc.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
@@ -37,7 +38,7 @@
       <div class="flex items-center justify-between md:justify-start md:space-x-4 whitespace-nowrap">
         <!-- Logo -->
         <a href="#home" class="flex-shrink-0">
-          <img src="logo.png" alt="Jinger Logo" class="h-6 w-auto hover:opacity-80 transition-opacity duration-300">
+          <img src="logo2.png" alt="Jinger Logo" class="h-6 w-auto hover:opacity-80 transition-opacity duration-300" style="filter: drop-shadow(0 0 7px rgba(0,0,0,1));">
         </a>
         <!-- Navigation Links -->
         <div class="flex space-x-3 md:space-x-4 text-xs md:text-sm font-medium">
@@ -122,10 +123,10 @@
             </div>
           </div>
 
-          <!-- Right Side - Robotic Visual -->
+          <!-- Right Side - Logo -->
           <div class="flex justify-center order-first md:order-last">
             <div class="relative">
-              <!-- Main robotic element -->
+              <!-- Main logo element -->
               <div class="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl shadow-2xl shadow-orange-500/20 flex items-center justify-center relative overflow-hidden">
                 <!-- Circuit pattern overlay -->
                 <div class="absolute inset-0 opacity-20">
@@ -139,7 +140,7 @@
                     <path d="M10 70 L90 70" stroke="white" stroke-width="0.5"/>
                   </svg>
                 </div>
-                <div class="text-white text-6xl sm:text-7xl md:text-8xl opacity-90 z-10">🤖</div>
+                <img src="logo.png" alt="Jeppe Rønnow Logo" class="w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 object-contain rounded-full z-10">
               </div>
               
               <!-- Tech elements around -->
@@ -202,7 +203,7 @@
             <!-- Profile Image -->
             <div class="relative">
               <div class="w-full max-w-sm md:max-w-md mx-auto">
-                <img src="logo.png" alt="Jinger Profile" class="w-full h-64 sm:h-80 md:h-96 object-cover rounded-2xl shadow-2xl bg-gray-200">
+                <img src="mig.png" alt="Jinger Profile" class="w-full h-64 sm:h-80 md:h-96 object-cover object-top rounded-2xl shadow-2xl bg-gray-200">
               </div>
             </div>
 
@@ -482,6 +483,25 @@
         modal.remove();
       }, 300);
     }
+
+    // Smooth scroll without URL hash change
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+    });
   </script>
 
 </body>
