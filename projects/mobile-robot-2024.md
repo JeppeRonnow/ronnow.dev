@@ -6,12 +6,10 @@ This project was developed as part of a competition at the University of Souther
 
 ![[img/bil.jpg]]
 
-Two different versions of the robot were created, each with a specific purpose.
+In my first-semester project on robot technology, our team was tasked with developing two autonomous mobile robots to compete in a series of predefined challenges. The project focused on integrating theory, electrical design, and software development to create two functional robots, each optimized for a specific task. I was responsible for a significant part of the software development and played a key role in the design and programming of the logistics robot.
 
-1. **Racing Version**  
-    The first version was optimized for speed and agility. It utilized line sensors to detect and follow a pre-defined track with high precision. The control algorithm was tuned to minimize lap time while maintaining stability at high speeds. Lightweight construction and efficient motor control ensured optimal performance during the racing challenge.
-    
-2. **Nut Collector Version**  
-    The second version was designed to navigate along the track while collecting metallic nuts placed along the route. This was achieved by integrating an electromagnet mounted on a mechanical arm. The robot followed the line using the same sensor-based navigation system as the racing version but included additional logic for detecting and activating the electromagnet at collection points. The collected nuts were securely stored until the end of the run.
-    
-Both versions were implemented using C++ for embedded programming and tested extensively to ensure reliability under competition conditions. The project demonstrated the ability to adapt a base robotic platform for multiple competitive tasks, combining precise navigation with specialized functionality.
+The competition included three main disciplines: "Racing," "Logistics," and "Pimp my ride". We developed two robots, codenamed "NASCAR" and "Wall-E," to tackle these challenges. The "NASCAR" robot was engineered for speed and code optimization, while "Wall-E," the logistics robot, was designed for precision and accurate movement, which required more advanced calculations and programming.
+
+A core part of our solution was the software, which was built using a Raspberry Pi Pico microcontroller with MicroPython. This project allowed me to gain extensive experience in low-level hardware programming and optimization. A key challenge was the slower execution speed of MicroPython compared to other languages like C, which we overcame by implementing asynchronous programming (uasyncio) to handle multiple tasks efficiently. For the logistics robot, precision was paramount. The robot was equipped with an electromagnet and an extra sensor box, allowing it to detect pickup spots and lift magnetic objects with great accuracy. I focused on creating the algorithms for precise line-following to ensure the robot could navigate its environment and complete its tasks flawlessly.
+
+The project was a success, with "Wall-E" securing a 1st place in its discipline and the team achieving a 2nd place overall. This experience honed my skills in system integration, problem-solving, and developing robust, efficient software for autonomous robotic systems.
