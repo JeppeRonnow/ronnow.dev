@@ -1,6 +1,6 @@
 # Semester project in "Autonomous Robots"
 
-**Technologies:** UR5, URrtde, c++, OpenCV, SQlite, QT
+**Technologies:** UR5, URrtde, C++, OpenCV, SQlite, QT
 
 
 Designed and programmed a UR5 robotic arm to identify and sort M&Ms using

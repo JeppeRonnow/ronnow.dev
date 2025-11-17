@@ -583,16 +583,25 @@
         <script>
             // Markdown project files (most recent first for timeline)
             const projectFiles = [
+                "projects/yolo-mm-study-2025.md",
                 "projects/robot-arm-2025.md",
                 "projects/mobile-robot-2024.md",
             ];
 
             const container = document.getElementById("timeline-container");
 
-            projectFiles.forEach((file, index) => {
-                fetch(file)
-                    .then((res) => res.text())
-                    .then((md) => {
+            // Fetch all projects in order
+            Promise.all(
+                projectFiles.map((file) =>
+                    fetch(file).then((res) => res.text()),
+                ),
+            )
+                .then((markdownContents) => {
+                    let previousYear = null;
+
+                    markdownContents.forEach((md, index) => {
+                        const file = projectFiles[index];
+
                         // Parse markdown to extract info
                         const lines = md.split("\n");
                         const title = lines[0].replace("# ", "");
@@ -600,6 +609,8 @@
                         // Extract year from filename
                         const yearMatch = file.match(/-(\d{4})\.md$/);
                         const year = yearMatch ? yearMatch[1] : "";
+                        const showYear = year && year !== previousYear;
+                        if (year) previousYear = year;
 
                         // Extract technologies from markdown (look for **Technologies:** line)
                         let technologies = [];
@@ -680,6 +691,10 @@
                             timelineItem.style.marginTop = "-16rem"; // 50% overlap on desktop
                         }
 
+                        // Add z-index so earlier cards appear on top (reverse order)
+                        timelineItem.style.zIndex =
+                            (projectFiles.length - index) * 10;
+
                         // Technology badges HTML
                         const techBadges = technologies
                             .map(
@@ -696,12 +711,18 @@
             <div class="hidden md:block absolute left-1/2 ${isLeft ? "right-1/2 -mr-12" : "left-1/2 -ml-12"} w-12 h-0.5 bg-orange-300 top-12"></div>
 
             <!-- Year Badge (mobile - top, desktop - on timeline) -->
+            ${
+                showYear
+                    ? `
             <div class="md:hidden mb-4 inline-flex items-center bg-orange-500 text-white px-4 py-2 rounded-full font-bold text-lg shadow-md">
               ${year}
             </div>
             <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 -top-8 bg-orange-500 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg z-20">
               ${year}
             </div>
+            `
+                    : ""
+            }
 
             <!-- Content Card -->
             <div class="w-full md:w-[calc(50%-3rem)] ${isLeft ? "md:pr-12" : "md:pl-12"} relative">
@@ -747,17 +768,20 @@
             </div>
           `;
 
-                        // Add click handler
-                        timelineItem.addEventListener("click", () => {
-                            showProjectModal(title, md);
-                        });
+                        // Add click handler with properly captured variables
+                        timelineItem.addEventListener(
+                            "click",
+                            (function (capturedTitle, capturedMd) {
+                                return function () {
+                                    showProjectModal(capturedTitle, capturedMd);
+                                };
+                            })(title, md),
+                        );
 
                         container.appendChild(timelineItem);
-                    })
-                    .catch((err) =>
-                        console.error(`Error loading ${file}:`, err),
-                    );
-            });
+                    });
+                })
+                .catch((err) => console.error("Error loading projects:", err));
 
             // Modal function
             function showProjectModal(title, markdown) {
