@@ -1,500 +1,896 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jeppe Rønnow — Robotics engineering</title>
-  <link rel="icon" type="image/png" href="logocirc.png">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <style>
-    html { scroll-behavior: smooth; }
-    .nav-link {
-      position: relative;
-      transition: color 0.3s ease;
-    }
-    .nav-link::after {
-      content: "";
-      position: absolute;
-      bottom: -4px;
-      left: 50%;
-      transform: translateX(-50%) scaleX(0);
-      transform-origin: center;
-      height: 2px;
-      width: 100%;
-      background-color: currentColor;
-      transition: transform 0.3s ease;
-    }
-    .nav-link:hover::after {
-      transform: translateX(-50%) scaleX(1);
-    }
-  </style>
-</head>
-<body class="bg-white text-gray-900 font-sans">
-
-  <!-- NAVBAR -->
-  <header class="fixed top-2 md:top-4 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 md:px-0 md:w-auto">
-    <nav class="bg-white/90 backdrop-blur-md rounded-xl md:rounded-full shadow-2xl shadow-black/80 border border-gray-200/50 px-6 md:px-8 py-3 min-w-fit">
-      <div class="flex items-center justify-between md:justify-start md:space-x-4 whitespace-nowrap">
-        <!-- Logo -->
-        <a href="#home" class="flex-shrink-0">
-          <img src="logo2.png" alt="Jinger Logo" class="h-6 w-auto hover:opacity-80 transition-opacity duration-300" style="filter: drop-shadow(1px 1px 2px rgba(0,0,0,1));">
-        </a>
-        <!-- Navigation Links -->
-        <div class="flex space-x-3 md:space-x-4 text-xs md:text-sm font-medium">
-          <a href="#home" class="nav-link px-2 md:px-3 py-1">Home</a>
-          <a href="#about" class="nav-link px-2 md:px-3 py-1">About</a>
-          <a href="#projects" class="nav-link px-2 md:px-3 py-1">Projects</a>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <!-- MAIN CONTENT -->
-  <main>
-
-    <!-- HOME -->
-    <section id="home" class="min-h-screen flex items-center justify-center px-4 md:px-6 pt-20 md:pt-16 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden">
-      <!-- Circuit board pattern background -->
-      <div class="absolute inset-0 opacity-5">
-        <svg class="w-full h-full" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Circuit lines -->
-          <path d="M0 100 L200 100 L200 200 L400 200" stroke="#f97316" stroke-width="2"/>
-          <path d="M400 200 L600 200 L600 100 L800 100" stroke="#f97316" stroke-width="2"/>
-          <path d="M800 100 L1000 100 L1000 300 L1200 300" stroke="#f97316" stroke-width="2"/>
-          <path d="M0 400 L150 400 L150 500 L350 500 L350 600 L550 600" stroke="#f97316" stroke-width="2"/>
-          <path d="M550 600 L750 600 L750 400 L950 400 L950 500 L1200 500" stroke="#f97316" stroke-width="2"/>
-          <path d="M100 0 L100 200 L300 200 L300 400 L500 400 L500 800" stroke="#f97316" stroke-width="2"/>
-          <path d="M700 0 L700 300 L900 300 L900 600 L1100 600 L1100 800" stroke="#f97316" stroke-width="2"/>
-          <!-- Circuit nodes -->
-          <circle cx="200" cy="100" r="4" fill="#f97316"/>
-          <circle cx="200" cy="200" r="4" fill="#f97316"/>
-          <circle cx="400" cy="200" r="4" fill="#f97316"/>
-          <circle cx="600" cy="200" r="4" fill="#f97316"/>
-          <circle cx="600" cy="100" r="4" fill="#f97316"/>
-          <circle cx="800" cy="100" r="4" fill="#f97316"/>
-          <circle cx="1000" cy="100" r="4" fill="#f97316"/>
-          <circle cx="150" cy="400" r="4" fill="#f97316"/>
-          <circle cx="350" cy="500" r="4" fill="#f97316"/>
-          <circle cx="550" cy="600" r="4" fill="#f97316"/>
-          <circle cx="750" cy="600" r="4" fill="#f97316"/>
-          <circle cx="950" cy="400" r="4" fill="#f97316"/>
-          <circle cx="100" cy="200" r="4" fill="#f97316"/>
-          <circle cx="300" cy="200" r="4" fill="#f97316"/>
-          <circle cx="500" cy="400" r="4" fill="#f97316"/>
-          <circle cx="700" cy="300" r="4" fill="#f97316"/>
-          <circle cx="900" cy="300" r="4" fill="#f97316"/>
-          <circle cx="1100" cy="600" r="4" fill="#f97316"/>
-        </svg>
-      </div>
-      
-      <!-- Animated floating elements -->
-      <div class="absolute inset-0">
-        <div class="absolute top-20 left-20 w-2 h-2 bg-orange-500 rounded-full animate-ping opacity-60"></div>
-        <div class="absolute top-40 right-32 w-2 h-2 bg-orange-400 rounded-full animate-ping opacity-60" style="animation-delay: 1s;"></div>
-        <div class="absolute bottom-32 left-1/3 w-2 h-2 bg-orange-500 rounded-full animate-ping opacity-60" style="animation-delay: 2s;"></div>
-        <div class="absolute bottom-40 right-20 w-2 h-2 bg-orange-400 rounded-full animate-ping opacity-60" style="animation-delay: 0.5s;"></div>
-      </div>
-      
-      <div class="max-w-6xl mx-auto relative z-10">
-        <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
-          <!-- Left Side - Hero Text -->
-          <div class="space-y-6 md:space-y-8 text-center md:text-left">
-            <div class="space-y-4 md:space-y-6">
-              <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
-                Jeppe Rønnow
-              </h1>
-              <div class="w-16 h-1 bg-orange-500 rounded-full mx-auto md:mx-0"></div>
-              <p class="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed">
-                Robotics Engineer | Autonomous Systems | Machine Vision
-              </p>
-              <div class="text-orange-600 font-mono text-xs sm:text-sm bg-gray-50 px-3 py-2 rounded-lg inline-block">
-                &gt; Designing intelligent systems that think, see, and act
-              </div>
-            </div>
-            
-            <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
-              <a href="#about" class="bg-orange-500 hover:bg-orange-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-medium transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/25 text-center">
-                Learn More
-              </a>
-              <a href="#projects" class="border-2 border-orange-500 hover:bg-orange-500 text-orange-500 hover:text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-medium transition-all duration-300 hover:transform hover:-translate-y-1 text-center">
-                View Projects
-              </a>
-            </div>
-          </div>
-
-          <!-- Right Side - Logo -->
-          <div class="flex justify-center order-first md:order-last">
-            <div class="relative">
-              <!-- Main logo element -->
-              <div class="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl shadow-2xl shadow-orange-500/20 flex items-center justify-center relative overflow-hidden">
-                <!-- Circuit pattern overlay -->
-                <div class="absolute inset-0 opacity-20">
-                  <svg class="w-full h-full" viewBox="0 0 100 100" fill="none">
-                    <path d="M10 10 L90 10 L90 90 L10 90 Z" stroke="white" stroke-width="1" fill="none"/>
-                    <path d="M30 10 L30 90" stroke="white" stroke-width="0.5"/>
-                    <path d="M50 10 L50 90" stroke="white" stroke-width="0.5"/>
-                    <path d="M70 10 L70 90" stroke="white" stroke-width="0.5"/>
-                    <path d="M10 30 L90 30" stroke="white" stroke-width="0.5"/>
-                    <path d="M10 50 L90 50" stroke="white" stroke-width="0.5"/>
-                    <path d="M10 70 L90 70" stroke="white" stroke-width="0.5"/>
-                  </svg>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Jeppe Rønnow — Robotics engineering</title>
+        <link rel="icon" type="image/png" href="logocirc.png" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <style>
+            html {
+                scroll-behavior: smooth;
+            }
+            .nav-link {
+                position: relative;
+                transition: color 0.3s ease;
+            }
+            .nav-link::after {
+                content: "";
+                position: absolute;
+                bottom: -4px;
+                left: 50%;
+                transform: translateX(-50%) scaleX(0);
+                transform-origin: center;
+                height: 2px;
+                width: 100%;
+                background-color: currentColor;
+                transition: transform 0.3s ease;
+            }
+            .nav-link:hover::after {
+                transform: translateX(-50%) scaleX(1);
+            }
+        </style>
+    </head>
+    <body class="bg-white text-gray-900 font-sans">
+        <!-- NAVBAR -->
+        <header
+            class="fixed top-2 md:top-4 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 md:px-0 md:w-auto"
+        >
+            <nav
+                class="bg-white/90 backdrop-blur-md rounded-xl md:rounded-full shadow-2xl shadow-black/80 border border-gray-200/50 px-6 md:px-8 py-3 min-w-fit"
+            >
+                <div
+                    class="flex items-center justify-between md:justify-start md:space-x-4 whitespace-nowrap"
+                >
+                    <!-- Logo -->
+                    <a href="#home" class="flex-shrink-0">
+                        <img
+                            src="logo2.png"
+                            alt="Jinger Logo"
+                            class="h-6 w-auto hover:opacity-80 transition-opacity duration-300"
+                            style="
+                                filter: drop-shadow(
+                                    1px 1px 2px rgba(0, 0, 0, 1)
+                                );
+                            "
+                        />
+                    </a>
+                    <!-- Navigation Links -->
+                    <div
+                        class="flex space-x-3 md:space-x-4 text-xs md:text-sm font-medium"
+                    >
+                        <a href="#home" class="nav-link px-2 md:px-3 py-1"
+                            >Home</a
+                        >
+                        <a href="#about" class="nav-link px-2 md:px-3 py-1"
+                            >About</a
+                        >
+                        <a href="#projects" class="nav-link px-2 md:px-3 py-1"
+                            >Projects</a
+                        >
+                    </div>
                 </div>
-                <img src="logo.png" alt="Jeppe Rønnow Logo" class="w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 object-contain rounded-full z-10">
-              </div>
-              
-              <!-- Tech elements around -->
-              <div class="absolute -top-4 md:-top-6 -left-4 md:-left-6 w-10 h-10 md:w-12 md:h-12 bg-white border-2 border-orange-500 rounded-lg flex items-center justify-center shadow-lg">
-                <span class="text-orange-500 text-xs font-mono font-bold">C++</span>
-              </div>
-              <div class="absolute -bottom-4 md:-bottom-6 -right-4 md:-right-6 w-10 h-10 md:w-12 md:h-12 bg-white border-2 border-orange-500 rounded-lg flex items-center justify-center shadow-lg">
-                <span class="text-orange-500 text-xs font-mono font-bold">ML</span>
-              </div>
-              <div class="absolute top-12 md:top-16 -right-8 md:-right-12 w-10 h-10 md:w-12 md:h-12 bg-white border-2 border-orange-500 rounded-lg flex items-center justify-center shadow-lg">
-                <span class="text-orange-500 text-xs font-mono font-bold">CV</span>
-              </div>
+            </nav>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <main>
+            <!-- HOME -->
+            <section
+                id="home"
+                class="min-h-screen flex items-center justify-center px-4 md:px-6 pt-20 md:pt-16 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden"
+            >
+                <!-- Circuit board pattern background -->
+                <div class="absolute inset-0 opacity-5">
+                    <svg
+                        class="w-full h-full"
+                        viewBox="0 0 1200 800"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <!-- Circuit lines -->
+                        <path
+                            d="M0 100 L200 100 L200 200 L400 200"
+                            stroke="#f97316"
+                            stroke-width="2"
+                        />
+                        <path
+                            d="M400 200 L600 200 L600 100 L800 100"
+                            stroke="#f97316"
+                            stroke-width="2"
+                        />
+                        <path
+                            d="M800 100 L1000 100 L1000 300 L1200 300"
+                            stroke="#f97316"
+                            stroke-width="2"
+                        />
+                        <path
+                            d="M0 400 L150 400 L150 500 L350 500 L350 600 L550 600"
+                            stroke="#f97316"
+                            stroke-width="2"
+                        />
+                        <path
+                            d="M550 600 L750 600 L750 400 L950 400 L950 500 L1200 500"
+                            stroke="#f97316"
+                            stroke-width="2"
+                        />
+                        <path
+                            d="M100 0 L100 200 L300 200 L300 400 L500 400 L500 800"
+                            stroke="#f97316"
+                            stroke-width="2"
+                        />
+                        <path
+                            d="M700 0 L700 300 L900 300 L900 600 L1100 600 L1100 800"
+                            stroke="#f97316"
+                            stroke-width="2"
+                        />
+                        <!-- Circuit nodes -->
+                        <circle cx="200" cy="100" r="4" fill="#f97316" />
+                        <circle cx="200" cy="200" r="4" fill="#f97316" />
+                        <circle cx="400" cy="200" r="4" fill="#f97316" />
+                        <circle cx="600" cy="200" r="4" fill="#f97316" />
+                        <circle cx="600" cy="100" r="4" fill="#f97316" />
+                        <circle cx="800" cy="100" r="4" fill="#f97316" />
+                        <circle cx="1000" cy="100" r="4" fill="#f97316" />
+                        <circle cx="150" cy="400" r="4" fill="#f97316" />
+                        <circle cx="350" cy="500" r="4" fill="#f97316" />
+                        <circle cx="550" cy="600" r="4" fill="#f97316" />
+                        <circle cx="750" cy="600" r="4" fill="#f97316" />
+                        <circle cx="950" cy="400" r="4" fill="#f97316" />
+                        <circle cx="100" cy="200" r="4" fill="#f97316" />
+                        <circle cx="300" cy="200" r="4" fill="#f97316" />
+                        <circle cx="500" cy="400" r="4" fill="#f97316" />
+                        <circle cx="700" cy="300" r="4" fill="#f97316" />
+                        <circle cx="900" cy="300" r="4" fill="#f97316" />
+                        <circle cx="1100" cy="600" r="4" fill="#f97316" />
+                    </svg>
+                </div>
+
+                <!-- Animated floating elements -->
+                <div class="absolute inset-0">
+                    <div
+                        class="absolute top-20 left-20 w-2 h-2 bg-orange-500 rounded-full animate-ping opacity-60"
+                    ></div>
+                    <div
+                        class="absolute top-40 right-32 w-2 h-2 bg-orange-400 rounded-full animate-ping opacity-60"
+                        style="animation-delay: 1s"
+                    ></div>
+                    <div
+                        class="absolute bottom-32 left-1/3 w-2 h-2 bg-orange-500 rounded-full animate-ping opacity-60"
+                        style="animation-delay: 2s"
+                    ></div>
+                    <div
+                        class="absolute bottom-40 right-20 w-2 h-2 bg-orange-400 rounded-full animate-ping opacity-60"
+                        style="animation-delay: 0.5s"
+                    ></div>
+                </div>
+
+                <div class="max-w-6xl mx-auto relative z-10">
+                    <div
+                        class="grid md:grid-cols-2 gap-8 md:gap-16 items-center"
+                    >
+                        <!-- Left Side - Hero Text -->
+                        <div
+                            class="space-y-6 md:space-y-8 text-center md:text-left"
+                        >
+                            <div class="space-y-4 md:space-y-6">
+                                <h1
+                                    class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight"
+                                >
+                                    Jeppe Rønnow
+                                </h1>
+                                <div
+                                    class="w-16 h-1 bg-orange-500 rounded-full mx-auto md:mx-0"
+                                ></div>
+                                <p
+                                    class="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed"
+                                >
+                                    Robotics Engineer | Autonomous Systems |
+                                    Machine Vision
+                                </p>
+                                <div
+                                    class="text-orange-600 font-mono text-xs sm:text-sm bg-gray-50 px-3 py-2 rounded-lg inline-block"
+                                >
+                                    &gt; Designing intelligent systems that
+                                    think, see, and act
+                                </div>
+                            </div>
+
+                            <div
+                                class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center md:justify-start"
+                            >
+                                <a
+                                    href="#about"
+                                    class="bg-orange-500 hover:bg-orange-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-medium transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/25 text-center"
+                                >
+                                    Learn More
+                                </a>
+                                <a
+                                    href="#projects"
+                                    class="border-2 border-orange-500 hover:bg-orange-500 text-orange-500 hover:text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-medium transition-all duration-300 hover:transform hover:-translate-y-1 text-center"
+                                >
+                                    View Projects
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Right Side - Logo -->
+                        <div
+                            class="flex justify-center order-first md:order-last"
+                        >
+                            <div class="relative">
+                                <!-- Main logo element -->
+                                <div
+                                    class="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl shadow-2xl shadow-orange-500/20 flex items-center justify-center relative overflow-hidden"
+                                >
+                                    <!-- Circuit pattern overlay -->
+                                    <div class="absolute inset-0 opacity-20">
+                                        <svg
+                                            class="w-full h-full"
+                                            viewBox="0 0 100 100"
+                                            fill="none"
+                                        >
+                                            <path
+                                                d="M10 10 L90 10 L90 90 L10 90 Z"
+                                                stroke="white"
+                                                stroke-width="1"
+                                                fill="none"
+                                            />
+                                            <path
+                                                d="M30 10 L30 90"
+                                                stroke="white"
+                                                stroke-width="0.5"
+                                            />
+                                            <path
+                                                d="M50 10 L50 90"
+                                                stroke="white"
+                                                stroke-width="0.5"
+                                            />
+                                            <path
+                                                d="M70 10 L70 90"
+                                                stroke="white"
+                                                stroke-width="0.5"
+                                            />
+                                            <path
+                                                d="M10 30 L90 30"
+                                                stroke="white"
+                                                stroke-width="0.5"
+                                            />
+                                            <path
+                                                d="M10 50 L90 50"
+                                                stroke="white"
+                                                stroke-width="0.5"
+                                            />
+                                            <path
+                                                d="M10 70 L90 70"
+                                                stroke="white"
+                                                stroke-width="0.5"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <img
+                                        src="logo.png"
+                                        alt="Jeppe Rønnow Logo"
+                                        class="w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 object-contain rounded-full z-10"
+                                    />
+                                </div>
+
+                                <!-- Tech elements around -->
+                                <div
+                                    class="absolute -top-4 md:-top-6 -left-4 md:-left-6 w-10 h-10 md:w-12 md:h-12 bg-white border-2 border-orange-500 rounded-lg flex items-center justify-center shadow-lg"
+                                >
+                                    <span
+                                        class="text-orange-500 text-xs font-mono font-bold"
+                                        >C++</span
+                                    >
+                                </div>
+                                <div
+                                    class="absolute -bottom-4 md:-bottom-6 -right-4 md:-right-6 w-10 h-10 md:w-12 md:h-12 bg-white border-2 border-orange-500 rounded-lg flex items-center justify-center shadow-lg"
+                                >
+                                    <span
+                                        class="text-orange-500 text-xs font-mono font-bold"
+                                        >ML</span
+                                    >
+                                </div>
+                                <div
+                                    class="absolute top-12 md:top-16 -right-8 md:-right-12 w-10 h-10 md:w-12 md:h-12 bg-white border-2 border-orange-500 rounded-lg flex items-center justify-center shadow-lg"
+                                >
+                                    <span
+                                        class="text-orange-500 text-xs font-mono font-bold"
+                                        >CV</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ABOUT -->
+            <section id="about" class="min-h-screen py-12 md:py-20">
+                <div class="max-w-6xl mx-auto px-4 md:px-6">
+                    <div
+                        class="grid md:grid-cols-2 gap-8 md:gap-16 items-start"
+                    >
+                        <!-- Left Side - Text Content -->
+                        <div class="space-y-6 md:space-y-8">
+                            <div>
+                                <h2
+                                    class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4 md:mb-6"
+                                >
+                                    I'm Jeppe. I live in Odense, Denmark, where
+                                    I design stuff.
+                                </h2>
+                            </div>
+
+                            <div
+                                class="space-y-4 md:space-y-6 text-gray-600 text-base md:text-lg leading-relaxed"
+                            >
+                                <p>
+                                    I am a third-semester Bachelor's student in
+                                    Robotics at the University of Southern
+                                    Denmark, Odense. My interests lie at the
+                                    intersection of electronics, software
+                                    development, computer vision, and machine
+                                    learning. I enjoy applying C++ programming
+                                    and innovative problem-solving to design and
+                                    develop intelligent robotic systems.
+                                </p>
+
+                                <p>
+                                    I’ve been fascinated by technology for as
+                                    long as I can remember, but my passion for
+                                    robotics really began during high school,
+                                    where I studied mechatronics. Even before
+                                    that, I loved computers and creating things
+                                    from scratch, whether it was tinkering with
+                                    electronics or writing small programs.
+                                </p>
+
+                                <p>
+                                    Since starting my Bachelor’s in Robotics at
+                                    the University of Southern Denmark, I’ve
+                                    been diving deeper into electronics,
+                                    software development in C++, computer
+                                    vision, and machine learning. I’ve worked on
+                                    several projects that challenged me to
+                                    combine these skills, from building robotic
+                                    arms to developing vision systems that can
+                                    interpret and interact with the environment.
+                                </p>
+
+                                <p>
+                                    Looking ahead, I aim to continue advancing
+                                    in machine learning and explore how
+                                    intelligent systems can be designed to solve
+                                    real-world problems, pushing the boundaries
+                                    of what autonomous robots can achieve.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Right Side - Image and Social Links -->
+                        <div class="space-y-6 md:space-y-8">
+                            <!-- Profile Image -->
+                            <div class="relative">
+                                <div
+                                    class="w-full max-w-sm md:max-w-md mx-auto"
+                                >
+                                    <img
+                                        src="mig.png"
+                                        alt="Jinger Profile"
+                                        class="w-full h-64 sm:h-80 md:h-96 object-cover object-top rounded-2xl shadow-2xl bg-gray-200"
+                                    />
+                                </div>
+                            </div>
+
+                            <!-- Social Links -->
+                            <div
+                                class="max-w-sm md:max-w-md mx-auto space-y-3 md:space-y-4"
+                            >
+                                <a
+                                    href="https://github.com/JeppeRonnow"
+                                    target="_blank"
+                                    class="flex items-center space-x-3 text-gray-600 hover:text-gray-900 transition-colors group"
+                                >
+                                    <svg
+                                        class="w-5 h-5 md:w-6 md:h-6"
+                                        fill="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.523 2 12 2z"
+                                            clip-rule="evenodd"
+                                        />
+                                    </svg>
+                                    <span
+                                        class="group-hover:underline text-sm md:text-base"
+                                        >Follow on GitHub</span
+                                    >
+                                </a>
+
+                                <a
+                                    href="https://www.linkedin.com/in/jeppe-r%C3%B8nnow-b06607279/"
+                                    target="_blank"
+                                    class="flex items-center space-x-3 text-gray-600 hover:text-gray-900 transition-colors group"
+                                >
+                                    <svg
+                                        class="w-5 h-5 md:w-6 md:h-6"
+                                        fill="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                                        />
+                                    </svg>
+                                    <span
+                                        class="group-hover:underline text-sm md:text-base"
+                                        >Follow on LinkedIn</span
+                                    >
+                                </a>
+
+                                <a
+                                    href="mailto:jinger@email.com"
+                                    class="flex items-center space-x-3 text-gray-600 hover:text-gray-900 transition-colors group"
+                                >
+                                    <svg
+                                        class="w-5 h-5 md:w-6 md:h-6"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                                        />
+                                    </svg>
+                                    <span
+                                        class="group-hover:underline text-sm md:text-base"
+                                        >jepperw@gmail.com</span
+                                    >
+                                </a>
+
+                                <a
+                                    href="mailto:jeroe24@student.sdu.dk"
+                                    class="flex items-center space-x-3 text-gray-600 hover:text-gray-900 transition-colors group"
+                                >
+                                    <svg
+                                        class="w-5 h-5 md:w-6 md:h-6"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M12 14l9-5-9-5-9 5 9 5z"
+                                        />
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+                                        />
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+                                        />
+                                    </svg>
+                                    <span
+                                        class="group-hover:underline text-sm md:text-base"
+                                        >jeroe24@student.sdu.dk</span
+                                    >
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROJECTS -->
+            <section
+                id="projects"
+                class="min-h-screen bg-gray-50 py-12 md:py-20 relative overflow-hidden"
+            >
+                <div class="max-w-5xl mx-auto px-4 md:px-6 relative z-10">
+                    <!-- Timeline Header -->
+                    <div class="text-center mb-16 md:mb-20">
+                        <div class="inline-flex items-center space-x-3 mb-6">
+                            <div
+                                class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center"
+                            >
+                                <span class="text-white text-xl">🔧</span>
+                            </div>
+                            <div
+                                class="text-orange-600 font-mono text-base bg-orange-50 px-4 py-2 rounded-lg"
+                            >
+                                &gt; portfolio.timeline()
+                            </div>
+                        </div>
+
+                        <h2
+                            class="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+                        >
+                            Project Timeline
+                        </h2>
+
+                        <div
+                            class="w-24 h-1 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full mx-auto mb-6"
+                        ></div>
+
+                        <p
+                            class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed"
+                        >
+                            Tracking my journey in robotics, computer vision,
+                            and autonomous systems
+                        </p>
+                    </div>
+
+                    <!-- Timeline Container -->
+                    <div class="relative">
+                        <!-- Timeline Line (hidden on mobile) -->
+                        <div
+                            class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-orange-300 via-orange-400 to-orange-300"
+                        ></div>
+
+                        <!-- Timeline Items Container -->
+                        <div
+                            id="timeline-container"
+                            class="relative space-y-8"
+                        ></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="bg-white border-t border-gray-200 py-8 md:py-12">
+            <div class="max-w-6xl mx-auto px-4 md:px-6">
+                <div
+                    class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
+                >
+                    <!-- Navigation Links -->
+                    <nav
+                        class="flex space-x-6 md:space-x-8 text-gray-600 text-sm md:text-base"
+                    >
+                        <a
+                            href="#about"
+                            class="hover:text-gray-900 transition-colors"
+                            >About</a
+                        >
+                        <a
+                            href="#projects"
+                            class="hover:text-gray-900 transition-colors"
+                            >Projects</a
+                        >
+                    </nav>
+
+                    <!-- Copyright -->
+                    <p class="text-gray-400 text-xs md:text-sm text-center">
+                        © 2025 Jeppe Rønnow. All rights reserved.
+                    </p>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
+        </footer>
 
-    <!-- ABOUT -->
-    <section id="about" class="min-h-screen py-12 md:py-20">
-      <div class="max-w-6xl mx-auto px-4 md:px-6">
-        <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-start">
-          <!-- Left Side - Text Content -->
-          <div class="space-y-6 md:space-y-8">
-            <div>
-              <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4 md:mb-6">
-                I'm Jeppe. I live in Odense, Denmark, where I design stuff.
-              </h2>
+        <script>
+            // Markdown project files (most recent first for timeline)
+            const projectFiles = [
+                "projects/robot-arm-2025.md",
+                "projects/mobile-robot-2024.md",
+            ];
+
+            const container = document.getElementById("timeline-container");
+
+            projectFiles.forEach((file, index) => {
+                fetch(file)
+                    .then((res) => res.text())
+                    .then((md) => {
+                        // Parse markdown to extract info
+                        const lines = md.split("\n");
+                        const title = lines[0].replace("# ", "");
+
+                        // Extract year from filename
+                        const yearMatch = file.match(/-(\d{4})\.md$/);
+                        const year = yearMatch ? yearMatch[1] : "";
+
+                        // Extract technologies from markdown (look for **Technologies:** line)
+                        let technologies = [];
+                        for (const line of lines) {
+                            if (line.startsWith("**Technologies:**")) {
+                                const techString = line
+                                    .replace("**Technologies:**", "")
+                                    .trim();
+                                technologies = techString
+                                    .split(",")
+                                    .map((t) => t.trim());
+                                break;
+                            }
+                        }
+
+                        // Extract first image
+                        let cardImage = null;
+                        const imageRegex = /!\[\[([^\]|]+)(?:\|(\d+))?\]\]/;
+                        const standardImageRegex = /!\[.*?\]\(([^)]+)\)/;
+
+                        for (const line of lines) {
+                            const wikiMatch = line.match(imageRegex);
+                            const standardMatch =
+                                line.match(standardImageRegex);
+
+                            if (wikiMatch) {
+                                cardImage = `projects/${wikiMatch[1]}`;
+                                break;
+                            } else if (standardMatch) {
+                                cardImage = standardMatch[1];
+                                break;
+                            }
+                        }
+
+                        // Get description - first paragraph after technologies
+                        let description = "";
+                        let foundTech = false;
+                        let collectingDescription = false;
+
+                        for (const line of lines) {
+                            if (line.startsWith("**Technologies:**")) {
+                                foundTech = true;
+                                continue;
+                            }
+
+                            // Start collecting when we find first non-empty line after tech
+                            if (
+                                foundTech &&
+                                line.trim() !== "" &&
+                                !line.startsWith("#") &&
+                                !line.startsWith("!")
+                            ) {
+                                collectingDescription = true;
+                            }
+
+                            // Collect lines until we hit an empty line or image
+                            if (collectingDescription) {
+                                if (
+                                    line.trim() === "" ||
+                                    line.startsWith("!")
+                                ) {
+                                    break;
+                                }
+                                description +=
+                                    (description ? " " : "") + line.trim();
+                            }
+                        }
+
+                        // Alternating left/right on desktop (even = right, odd = left)
+                        const isLeft = index % 2 !== 0;
+
+                        // Create timeline item
+                        const timelineItem = document.createElement("div");
+                        timelineItem.className = `relative flex items-center ${isLeft ? "md:flex-row-reverse" : "md:flex-row"} flex-col`;
+
+                        // Add overlap with inline styles (Tailwind CDN doesn't see dynamic classes)
+                        if (index > 0) {
+                            timelineItem.style.marginTop = "-16rem"; // 50% overlap on desktop
+                        }
+
+                        // Technology badges HTML
+                        const techBadges = technologies
+                            .map(
+                                (tech) =>
+                                    `<span class="inline-block bg-orange-100 text-orange-700 text-xs font-semibold px-3 py-1 rounded-full">${tech}</span>`,
+                            )
+                            .join("");
+
+                        timelineItem.innerHTML = `
+            <!-- Small Node where line splits -->
+            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 -translate-y-1/3 w-2 h-2 bg-orange-600 rounded-full z-10 top-12"></div>
+
+            <!-- Connecting Line from card to timeline -->
+            <div class="hidden md:block absolute left-1/2 ${isLeft ? "right-1/2 -mr-12" : "left-1/2 -ml-12"} w-12 h-0.5 bg-orange-300 top-12"></div>
+
+            <!-- Year Badge (mobile - top, desktop - on timeline) -->
+            <div class="md:hidden mb-4 inline-flex items-center bg-orange-500 text-white px-4 py-2 rounded-full font-bold text-lg shadow-md">
+              ${year}
             </div>
-            
-            <div class="space-y-4 md:space-y-6 text-gray-600 text-base md:text-lg leading-relaxed">
-              <p>
-                I am a third-semester Bachelor's student in Robotics at the University of Southern Denmark, Odense. My interests lie at the intersection of electronics, software development, computer vision, and machine learning. I enjoy applying C++ programming and innovative problem-solving to design and develop intelligent robotic systems.
-              </p>
-              
-              <p>
-                I’ve been fascinated by technology for as long as I can remember, but my passion for robotics really began during high school, where I studied mechatronics. Even before that, I loved computers and creating things from scratch, whether it was tinkering with electronics or writing small programs.
-              </p>
-              
-              <p>
-                Since starting my Bachelor’s in Robotics at the University of Southern Denmark, I’ve been diving deeper into electronics, software development in C++, computer vision, and machine learning. I’ve worked on several projects that challenged me to combine these skills, from building robotic arms to developing vision systems that can interpret and interact with the environment.
-              </p>
-              
-              <p>
-                Looking ahead, I aim to continue advancing in machine learning and explore how intelligent systems can be designed to solve real-world problems, pushing the boundaries of what autonomous robots can achieve.
-              </p>
-            </div>
-          </div>
-
-          <!-- Right Side - Image and Social Links -->
-          <div class="space-y-6 md:space-y-8">
-            <!-- Profile Image -->
-            <div class="relative">
-              <div class="w-full max-w-sm md:max-w-md mx-auto">
-                <img src="mig.png" alt="Jinger Profile" class="w-full h-64 sm:h-80 md:h-96 object-cover object-top rounded-2xl shadow-2xl bg-gray-200">
-              </div>
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 -top-8 bg-orange-500 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg z-20">
+              ${year}
             </div>
 
-            <!-- Social Links -->
-            <div class="max-w-sm md:max-w-md mx-auto space-y-3 md:space-y-4">
-              <a href="https://github.com/JeppeRonnow" target="_blank" class="flex items-center space-x-3 text-gray-600 hover:text-gray-900 transition-colors group">
-                <svg class="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.523 2 12 2z" clip-rule="evenodd"/>
-                </svg>
-                <span class="group-hover:underline text-sm md:text-base">Follow on GitHub</span>
-              </a>
+            <!-- Content Card -->
+            <div class="w-full md:w-[calc(50%-3rem)] ${isLeft ? "md:pr-12" : "md:pl-12"} relative">
 
-              <a href="https://www.linkedin.com/in/jeppe-r%C3%B8nnow-b06607279/" target="_blank" class="flex items-center space-x-3 text-gray-600 hover:text-gray-900 transition-colors group">
-                <svg class="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                </svg>
-                <span class="group-hover:underline text-sm md:text-base">Follow on LinkedIn</span>
-              </a>
+              <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden cursor-pointer group transform hover:scale-105">
+                <!-- Project Image -->
+                ${
+                    cardImage
+                        ? `<div class="relative h-56 overflow-hidden">
+                    <img src="${cardImage}" alt="${title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  </div>`
+                        : `<div class="h-56 bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center">
+                    <div class="text-white text-7xl opacity-30">🤖</div>
+                  </div>`
+                }
 
-              <a href="mailto:jinger@email.com" class="flex items-center space-x-3 text-gray-600 hover:text-gray-900 transition-colors group">
-                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                </svg>
-                <span class="group-hover:underline text-sm md:text-base">jepperw@gmail.com</span>
-              </a>
+                <!-- Card Content -->
+                <div class="p-6">
+                  <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">
+                    ${title}
+                  </h3>
 
-              <a href="mailto:jeroe24@student.sdu.dk" class="flex items-center space-x-3 text-gray-600 hover:text-gray-900 transition-colors group">
-                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
-                </svg>
-                <span class="group-hover:underline text-sm md:text-base">jeroe24@student.sdu.dk</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+                  <!-- Technology Tags -->
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    ${techBadges}
+                  </div>
 
-    <!-- PROJECTS -->
-    <section id="projects" class="min-h-screen bg-gray-50 py-12 md:py-20 relative overflow-hidden">
-      <div class="max-w-6xl mx-auto px-4 md:px-6 relative z-10">
-        <!-- Enhanced Projects Header -->
-        <div class="text-center mb-12 md:mb-16">
-          <div class="inline-flex items-center space-x-3 mb-6">
-            <div class="w-8 h-8 md:w-10 md:h-10 bg-orange-500 rounded-lg flex items-center justify-center">
-              <span class="text-white text-lg md:text-xl">🔧</span>
-            </div>
-            <div class="text-orange-600 font-mono text-sm md:text-base bg-orange-50 px-3 py-1 rounded-lg">
-              &gt; portfolio.showcase()
-            </div>
-          </div>
-          
-          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 md:mb-6">
-            Featured Projects
-          </h2>
-          
-          <div class="w-20 md:w-24 h-1 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full mx-auto mb-4 md:mb-6"></div>
-          
-          <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            A collection of hobby- and semesterprojects exploring robotics, computer vision, and autonomous systems through hands-on engineering.
-          </p>
-        </div>
-        
-        <div id="project-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"></div>
-      </div>
-    </section>
-  </main>
+                  <!-- Description -->
+                  <p class="text-gray-600 leading-relaxed mb-3">
+                    ${description}
+                  </p>
 
-  <!-- FOOTER -->
-  <footer class="bg-white border-t border-gray-200 py-8 md:py-12">
-    <div class="max-w-6xl mx-auto px-4 md:px-6">
-      <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-        <!-- Navigation Links -->
-        <nav class="flex space-x-6 md:space-x-8 text-gray-600 text-sm md:text-base">
-          <a href="#about" class="hover:text-gray-900 transition-colors">About</a>
-          <a href="#projects" class="hover:text-gray-900 transition-colors">Projects</a>
-        </nav>
-        
-        <!-- Copyright -->
-        <p class="text-gray-400 text-xs md:text-sm text-center">
-          © 2025 Jeppe Rønnow. All rights reserved.
-        </p>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    // Markdown project files
-    const projectFiles = [
-      'projects/robot-arm-2025.md',
-      'projects/mobile-robot-2024.md',
-      
-    ];
-
-    const container = document.getElementById('project-list');
-
-    projectFiles.forEach((file, index) => {
-      fetch(file)
-        .then(res => res.text())
-        .then(md => {
-          // Parse markdown to extract info
-          const lines = md.split('\n');
-          const title = lines[0].replace('# ', '');
-          
-          // Extract year from filename (e.g., "projects/robot-arm-2025.md" -> "2025")
-          const yearMatch = file.match(/-(\d{4})\.md$/);
-          const year = yearMatch ? yearMatch[1] : '';
-          
-          // Extract first image from markdown
-          let cardImage = null;
-          const imageRegex = /!\[\[([^\]|]+)(?:\|(\d+))?\]\]/; // Matches ![[image.png]] or ![[image.png|300]]
-          const standardImageRegex = /!\[.*?\]\(([^)]+)\)/; // Matches ![alt](image.png)
-          
-          for (const line of lines) {
-            const wikiMatch = line.match(imageRegex);
-            const standardMatch = line.match(standardImageRegex);
-            
-            if (wikiMatch) {
-              // Convert wiki-style image path to relative path
-              cardImage = `projects/${wikiMatch[1]}`;
-              break;
-            } else if (standardMatch) {
-              cardImage = standardMatch[1];
-              break;
-            }
-          }
-          
-          // Get description - extract text from beginning until first period
-          let description = '';
-          for (const line of lines) {
-            // Skip title, empty lines, and markdown formatting lines
-            if (line.startsWith('# ') || line.trim() === '' || line.startsWith('**') || line.startsWith('![')) {
-              continue;
-            }
-            // Add this line to description
-            description += (description ? ' ' : '') + line.trim();
-            // Stop at first period
-            if (description.includes('.')) {
-              description = description.substring(0, description.indexOf('.') + 1);
-              break;
-            }
-          }
-          
-          // Create card
-          const card = document.createElement('div');
-          card.className = "bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2 overflow-hidden";
-          
-          // Create image content
-          const imageContent = cardImage 
-            ? `<img src="${cardImage}" alt="${title}" class="w-full h-48 object-cover">`
-            : `<div class="h-48 bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center">
-                 <div class="text-white text-6xl opacity-20">🤖</div>
-               </div>`;
-          
-          card.innerHTML = `
-            ${imageContent}
-            <div class="p-6">
-              <div class="flex items-center justify-between mb-4">
-                <h3 class="text-xl font-bold text-gray-800">${title}</h3>
-                ${year ? `<span class="text-orange-500 text-sm font-medium bg-orange-50 px-2 py-1 rounded">${year}</span>` : ''}
-              </div>
-              <p class="text-gray-600 text-sm leading-relaxed">${description}</p>
-              <div class="mt-4 flex justify-between items-center">
-                <span class="text-orange-500 text-sm font-medium">Click to read more</span>
-                <svg class="w-5 h-5 text-orange-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
+                  <!-- Read More -->
+                  <div class="mt-4 flex items-center text-orange-500 font-medium group-hover:text-orange-600 transition-colors">
+                    <span class="mr-2">View Full Project</span>
+                    <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
           `;
-          
-          // Add click handler for expansion with animation
-          card.addEventListener('click', (e) => {
-            // Add click animation
-            card.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-              card.style.transform = '';
-              showProjectModal(title, md);
-            }, 150);
-          });
-          
-          container.appendChild(card);
-        })
-        .catch(err => console.error(`Error loading ${file}:`, err));
-    });
 
-    // Modal function
-    function showProjectModal(title, markdown) {
-      const modal = document.createElement('div');
-      modal.className = "fixed inset-0 bg-black bg-opacity-0 z-50 flex items-center justify-center p-2 md:p-4 transition-all duration-300";
-      
-      // Process markdown to handle images properly
-      const processedMarkdown = markdown.replace(
-        /!\[\[([^\]|]+)(?:\|(\d+))?\]\]/g, 
-        (match, imagePath, width) => {
-          if (width) {
-            return `![](projects/${imagePath}){width="${width}px"}`;
-          }
-          return `![](projects/${imagePath})`;
-        }
-      );
-      
-      modal.innerHTML = `
-        <div class="bg-white rounded-lg md:rounded-2xl w-full max-w-4xl max-h-[95vh] md:max-h-[90vh] overflow-y-auto shadow-2xl transform scale-75 opacity-0 transition-all duration-300">
+                        // Add click handler
+                        timelineItem.addEventListener("click", () => {
+                            showProjectModal(title, md);
+                        });
+
+                        container.appendChild(timelineItem);
+                    })
+                    .catch((err) =>
+                        console.error(`Error loading ${file}:`, err),
+                    );
+            });
+
+            // Modal function
+            function showProjectModal(title, markdown) {
+                const modal = document.createElement("div");
+                modal.className =
+                    "fixed inset-0 bg-black bg-opacity-0 z-50 flex items-center justify-center p-2 md:p-4 transition-all duration-300";
+
+                // Process markdown to handle images properly
+                const processedMarkdown = markdown.replace(
+                    /!\[\[([^\]|]+)(?:\|(\d+))?\]\]/g,
+                    (match, imagePath, width) => {
+                        if (width) {
+                            return `![](projects/${imagePath}){width="${width}px"}`;
+                        }
+                        return `![](projects/${imagePath})`;
+                    },
+                );
+
+                modal.innerHTML = `
+        <div class="bg-white rounded-2xl w-full max-w-4xl max-h-[95vh] overflow-y-auto shadow-2xl transform scale-75 opacity-0 transition-all duration-300">
           <!-- Hero Header -->
-          <div class="relative h-16 sm:h-24 md:h-32 bg-gradient-to-br from-orange-500 via-orange-400 to-yellow-300 rounded-t-lg md:rounded-t-2xl overflow-hidden">
+          <div class="relative h-32 bg-gradient-to-br from-orange-500 via-orange-400 to-yellow-300 rounded-t-2xl overflow-hidden">
             <div class="absolute inset-0 bg-black bg-opacity-20"></div>
-            <button class="absolute top-2 md:top-3 right-2 md:right-3 text-white hover:text-orange-200 text-xl md:text-2xl transition-all duration-200 hover:rotate-90 transform hover:scale-110 z-10 w-6 h-6 md:w-8 md:h-8 flex items-center justify-center" onclick="closeModal(this)">×</button>
-            <div class="absolute bottom-2 md:bottom-3 left-2 md:left-3 text-white">
-              <h2 class="text-sm sm:text-lg md:text-2xl font-bold mb-1 drop-shadow-lg">${title}</h2>
-              <div class="w-8 md:w-12 h-0.5 bg-white rounded-full opacity-80"></div>
+            <button class="absolute top-4 right-4 text-white hover:text-orange-200 text-3xl transition-all duration-200 hover:rotate-90 transform hover:scale-110 z-10 w-10 h-10 flex items-center justify-center" onclick="closeModal(this)">×</button>
+            <div class="absolute bottom-4 left-6 text-white">
+              <h2 class="text-3xl font-bold mb-2 drop-shadow-lg">${title}</h2>
+              <div class="w-16 h-1 bg-white rounded-full opacity-80"></div>
             </div>
           </div>
-          
+
           <!-- Content Area -->
-          <div class="p-4 md:p-8">
-            <article class="max-w-none">
+          <div class="p-8">
+            <article class="max-w-none prose prose-lg">
               ${formatBlogContent(processedMarkdown)}
             </article>
           </div>
         </div>
       `;
-      
-      document.body.appendChild(modal);
-      
-      // Prevent body scroll when modal is open
-      document.body.style.overflow = 'hidden';
-      
-      // Animate in
-      setTimeout(() => {
-        modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        const modalContent = modal.querySelector('div > div');
-        modalContent.style.transform = 'scale(1)';
-        modalContent.style.opacity = '1';
-      }, 10);
-      
-      // Close on backdrop click
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          closeModal(modal.querySelector('button'));
-        }
-      });
-    }
 
-    // Format blog content with custom styling
-    function formatBlogContent(markdown) {
-      const html = marked.parse(markdown);
-      
-      return html
-        .replace(/<h1[^>]*>.*?<\/h1>/, '') // Remove the first H1 header (duplicate title)
-        .replace(/<h2[^>]*>/g, '<h2 class="text-xl md:text-2xl font-semibold text-gray-800 mt-6 md:mt-8 mb-3 md:mb-4">')
-        .replace(/<h3[^>]*>/g, '<h3 class="text-lg md:text-xl font-semibold text-gray-700 mt-4 md:mt-6 mb-2 md:mb-3">')
-        .replace(/<p[^>]*>/g, '<p class="text-gray-600 leading-relaxed mb-3 md:mb-4 text-sm md:text-lg">')
-        .replace(/<strong[^>]*>/g, '<strong class="font-semibold text-orange-600">')
-        .replace(/<ul[^>]*>/g, '<ul class="space-y-1 md:space-y-2 mb-4 md:mb-6">')
-        .replace(/<li[^>]*>/g, '<li class="flex items-start"><span class="text-orange-500 mr-2 md:mr-3 mt-1">•</span><span class="text-gray-600 leading-relaxed text-sm md:text-base">')
-        .replace(/<\/li>/g, '</span></li>')
-        .replace(/<img([^>]*)>/g, '<div class="my-4 md:my-8 flex justify-center"><img$1 class="max-w-xs md:max-w-sm rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"></div>')
-        .replace(/<code[^>]*>/g, '<code class="bg-gray-100 text-orange-600 px-1 md:px-2 py-1 rounded font-mono text-xs md:text-sm">');
-    }
+                document.body.appendChild(modal);
 
-    // Close modal function with animation
-    function closeModal(button) {
-      const modal = button.closest('.fixed');
-      const modalContent = modal.querySelector('div > div');
-      
-      // Restore body scroll
-      document.body.style.overflow = '';
-      
-      modal.style.backgroundColor = 'rgba(0, 0, 0, 0)';
-      modalContent.style.transform = 'scale(0.75)';
-      modalContent.style.opacity = '0';
-      
-      setTimeout(() => {
-        modal.remove();
-      }, 300);
-    }
+                // Prevent body scroll when modal is open
+                document.body.style.overflow = "hidden";
 
-    // Smooth scroll without URL hash change
-    document.addEventListener('DOMContentLoaded', function() {
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          
-          const targetId = this.getAttribute('href').substring(1);
-          const targetElement = document.getElementById(targetId);
-          
-          if (targetElement) {
-            targetElement.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
+                // Animate in
+                setTimeout(() => {
+                    modal.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+                    const modalContent = modal.querySelector("div > div");
+                    modalContent.style.transform = "scale(1)";
+                    modalContent.style.opacity = "1";
+                }, 10);
+
+                // Close on backdrop click
+                modal.addEventListener("click", (e) => {
+                    if (e.target === modal) {
+                        closeModal(modal.querySelector("button"));
+                    }
+                });
+            }
+
+            // Format blog content with custom styling
+            function formatBlogContent(markdown) {
+                const html = marked.parse(markdown);
+
+                return html
+                    .replace(/<h1[^>]*>.*?<\/h1>/, "") // Remove the first H1 header (duplicate title)
+                    .replace(
+                        /<h2[^>]*>/g,
+                        '<h2 class="text-3xl font-bold text-gray-900 mt-8 mb-4 border-b-2 border-orange-200 pb-2">',
+                    )
+                    .replace(
+                        /<h3[^>]*>/g,
+                        '<h3 class="text-2xl font-semibold text-gray-800 mt-6 mb-3">',
+                    )
+                    .replace(
+                        /<p[^>]*>/g,
+                        '<p class="text-gray-700 leading-relaxed mb-4 text-lg">',
+                    )
+                    .replace(
+                        /<strong[^>]*>/g,
+                        '<strong class="font-bold text-orange-600">',
+                    )
+                    .replace(/<ul[^>]*>/g, '<ul class="space-y-3 mb-6 ml-4">')
+                    .replace(
+                        /<li[^>]*>/g,
+                        '<li class="flex items-start"><span class="text-orange-500 mr-3 mt-1.5 text-xl">•</span><span class="text-gray-700 leading-relaxed text-base flex-1">',
+                    )
+                    .replace(/<\/li>/g, "</span></li>")
+                    .replace(
+                        /<img([^>]*)>/g,
+                        '<div class="my-8 flex justify-center"><img$1 class="max-w-md rounded-xl shadow-2xl hover:shadow-3xl transition-shadow duration-300 border-4 border-gray-100"></div>',
+                    )
+                    .replace(
+                        /<code[^>]*>/g,
+                        '<code class="bg-orange-50 text-orange-700 px-2 py-1 rounded font-mono text-sm border border-orange-200">',
+                    );
+            }
+
+            // Close modal function with animation
+            function closeModal(button) {
+                const modal = button.closest(".fixed");
+                const modalContent = modal.querySelector("div > div");
+
+                // Restore body scroll
+                document.body.style.overflow = "";
+
+                modal.style.backgroundColor = "rgba(0, 0, 0, 0)";
+                modalContent.style.transform = "scale(0.75)";
+                modalContent.style.opacity = "0";
+
+                setTimeout(() => {
+                    modal.remove();
+                }, 300);
+            }
+
+            // Smooth scroll without URL hash change
+            document.addEventListener("DOMContentLoaded", function () {
+                document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+                    anchor.addEventListener("click", function (e) {
+                        e.preventDefault();
+
+                        const targetId = this.getAttribute("href").substring(1);
+                        const targetElement = document.getElementById(targetId);
+
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start",
+                            });
+                        }
+                    });
+                });
             });
-          }
-        });
-      });
-    });
-  </script>
-
-</body>
+        </script>
+    </body>
 </html>
