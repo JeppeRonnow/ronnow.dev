@@ -1,500 +1,561 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jeppe Rønnow — Robotics engineering</title>
-  <link rel="icon" type="image/png" href="logocirc.png">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jeppe Rønnow</title>
+  <link rel="icon" type="image/png" href="assets/logocirc.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+    rel="stylesheet"
+  />
+
   <style>
+    :root {
+      --paper: #ffffff;
+      --ink: #1a1a1a;
+      --ink-soft: #555555;
+      --ink-mute: #9a9a9a;
+      --rule: #e8e8e8;
+      --accent: #1a1a1a;
+      --font-body: "Newsreader", "EB Garamond", Georgia, serif;
+      --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.08  0 0 0 0 0.08  0 0 0 0.10 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      --grain-blend: multiply;
+      --grain-opacity: 0.5;
+    }
+    body.dark {
+      --paper: #16140f;
+      --ink: #e8e3d8;
+      --ink-soft: #9d978c;
+      --ink-mute: #66615a;
+      --rule: #2a2723;
+      --accent: #e8e3d8;
+      --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95  0 0 0 0 0.92  0 0 0 0 0.85  0 0 0 0.10 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      --grain-blend: screen;
+      --grain-opacity: 0.28;
+    }
+
+    * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    .nav-link {
-      position: relative;
-      transition: color 0.3s ease;
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 19px;
+      line-height: 1.65;
+      font-weight: 400;
+      font-feature-settings: "kern", "liga";
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      transition: background-color 280ms ease, color 280ms ease;
     }
-    .nav-link::after {
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ====== Paper grain ====== */
+    body::before {
       content: "";
-      position: absolute;
-      bottom: -4px;
-      left: 50%;
-      transform: translateX(-50%) scaleX(0);
-      transform-origin: center;
-      height: 2px;
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: var(--grain-opacity);
+      mix-blend-mode: var(--grain-blend);
+      background-image: var(--grain);
+      background-size: 220px 220px;
+    }
+    main, footer, .modal-backdrop { position: relative; z-index: 2; }
+
+    /* ====== Layout ====== */
+    .page {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 96px 28px 120px;
+    }
+
+    /* ====== Header ====== */
+    .masthead { margin-bottom: 56px; }
+    .name {
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: 0;
+      margin: 0 0 4px;
+    }
+    .role {
+      font-size: 17px;
+      color: var(--ink-soft);
+      margin: 0;
+      font-style: italic;
+    }
+    .now {
+      font-size: 17px;
+      color: var(--ink-soft);
+      font-style: italic;
+      margin: 4px 0 0;
+      padding-top: 10px;
+      border-top: 1px solid var(--rule);
+    }
+    .now b {
+      font-style: normal;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 12px;
+      margin-right: 8px;
+    }
+    .now + .now { border-top: none; padding-top: 0; }
+
+    /* ====== Sections ====== */
+    section { margin-top: 64px; }
+    h2 {
+      font-size: 19px;
+      font-weight: 500;
+      margin: 0 0 18px;
+      color: var(--ink);
+    }
+    p { margin: 0 0 1em; color: var(--ink); }
+    em { font-style: italic; }
+
+    /* ====== Portrait ====== */
+    .portrait {
+      float: right;
+      width: 168px;
+      height: auto;
+      margin: 4px 0 16px 28px;
+      shape-outside: margin-box;
+      padding: 8px;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      box-shadow:
+        0 1px 1px rgba(0,0,0,0.04),
+        0 4px 12px rgba(0,0,0,0.08),
+        0 16px 32px rgba(0,0,0,0.06);
+    }
+    .portrait img { border-radius: 8px; }
+    @media (max-width: 520px) {
+      .portrait { float: none; display: block; margin: 0 0 24px; width: 60%; }
+    }
+
+    /* ====== Project list ====== */
+    .project-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .project-list li {
+      padding: 8px 0;
+    }
+    .project-list a {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
       width: 100%;
-      background-color: currentColor;
-      transition: transform 0.3s ease;
+      border-bottom: 1px solid transparent;
+      transition: border-color 180ms ease, color 180ms ease;
+      cursor: pointer;
     }
-    .nav-link:hover::after {
-      transform: translateX(-50%) scaleX(1);
+    .project-list a:hover { color: var(--accent); }
+    .project-list .year {
+      color: var(--ink-mute);
+      font-variant-numeric: tabular-nums;
+      flex-shrink: 0;
+      font-size: 17px;
     }
+    .project-list a:hover .year { color: var(--accent); }
+
+    /* ====== Contact ====== */
+    .contact { list-style: none; padding: 0; margin: 0; }
+    .contact li { padding: 4px 0; }
+    .contact a {
+      border-bottom: 1px solid var(--rule);
+      transition: border-color 180ms ease, color 180ms ease;
+    }
+    .contact a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ====== Footer ====== */
+    footer {
+      margin-top: 96px;
+      padding-top: 24px;
+      border-top: 1px solid var(--rule);
+      font-size: 15px;
+      color: var(--ink-mute);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    /* ====== Modal ====== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 26, 26, 0);
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 60px 20px;
+      overflow-y: auto;
+      pointer-events: none;
+      transition: background 280ms ease;
+    }
+    .modal-backdrop.open {
+      background: rgba(26, 26, 26, 0.35);
+      pointer-events: auto;
+    }
+    .modal {
+      background: var(--paper);
+      width: 100%;
+      max-width: 640px;
+      padding: 56px 48px 64px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 260ms ease, transform 300ms ease;
+      position: relative;
+      border: 1px solid var(--rule);
+    }
+    .modal-backdrop.open .modal { opacity: 1; transform: translateY(0); }
+    .modal-close {
+      position: absolute;
+      top: 18px; right: 22px;
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 17px;
+      color: var(--ink-mute);
+      cursor: pointer;
+      padding: 4px 6px;
+      font-style: italic;
+      transition: color 180ms ease;
+    }
+    .modal-close:hover { color: var(--accent); }
+    .modal h2 { font-size: 22px; font-weight: 500; margin: 0 0 4px; }
+    .modal .modal-year { font-style: italic; color: var(--ink-mute); margin: 0 0 28px; font-size: 17px; }
+    .modal p { color: var(--ink); margin: 0 0 1em; font-size: 18px; line-height: 1.7; }
+    .modal h3 { font-size: 17px; font-weight: 500; margin: 1.8em 0 0.4em; color: var(--ink); }
+    .modal ul { list-style: none; padding: 0; margin: 0 0 1.2em; }
+    .modal ul li {
+      padding-left: 18px;
+      position: relative;
+      margin-bottom: 4px;
+      color: var(--ink);
+      line-height: 1.6;
+      font-size: 18px;
+    }
+    .modal ul li::before { content: "—"; position: absolute; left: 0; color: var(--ink-mute); }
+
+    /* Modal figures */
+    .modal figure { margin: 28px 0 8px; }
+    .modal figure img {
+      width: 100%;
+      height: auto;
+      padding: 8px;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 14px;
+      box-shadow:
+        0 1px 1px rgba(0,0,0,0.04),
+        0 6px 18px rgba(0,0,0,0.08),
+        0 22px 40px rgba(0,0,0,0.06);
+    }
+    .modal figure figcaption {
+      font-size: 15px;
+      color: var(--ink-mute);
+      font-style: italic;
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+    /* Inline images in modal (from markdown) */
+    .modal img:not(figure img) {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+      border: 1px solid var(--rule);
+      padding: 6px;
+      background: var(--paper);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    }
+    .modal .tech { font-size: 15px; color: var(--ink-mute); margin: -6px 0 24px; }
+    .modal .tech b { font-weight: 500; color: var(--ink); font-style: italic; }
+    .modal strong { font-weight: 500; }
+    .modal code {
+      font-family: monospace;
+      font-size: 15px;
+      background: var(--rule);
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+
+    @media (max-width: 600px) {
+      .page { padding: 64px 24px 80px; }
+      .modal { padding: 48px 28px 56px; }
+    }
+
+    /* ====== Hover preview ====== */
+    .preview {
+      position: fixed;
+      width: 240px;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 220ms ease, transform 260ms ease, top 280ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      z-index: 30;
+    }
+    .preview.visible { opacity: 1; transform: translateY(0); }
+    .preview img {
+      width: 100%;
+      height: auto;
+      padding: 6px;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      box-shadow:
+        0 2px 4px rgba(0,0,0,0.06),
+        0 10px 22px rgba(0,0,0,0.08),
+        0 20px 36px rgba(0,0,0,0.06);
+    }
+    @media (max-width: 1100px) { .preview { display: none !important; } }
+
+    /* ====== Theme toggle ====== */
+    .theme-toggle {
+      position: fixed;
+      left: 24px; bottom: 24px;
+      z-index: 40;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--rule);
+      background: var(--paper);
+      color: var(--ink-soft);
+      font: inherit;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 6px 16px rgba(0,0,0,0.06);
+      transition: color 180ms ease, transform 220ms ease, box-shadow 220ms ease, background-color 280ms ease, border-color 280ms ease;
+    }
+    .theme-toggle:hover {
+      color: var(--ink);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05), 0 10px 22px rgba(0,0,0,0.08);
+    }
+    .theme-toggle svg {
+      width: 16px; height: 16px;
+      stroke: currentColor; fill: none;
+      stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .theme-toggle .sun { display: block; }
+    .theme-toggle .moon { display: none; }
+    body.dark .theme-toggle .sun { display: none; }
+    body.dark .theme-toggle .moon { display: block; }
+    @media (max-width: 600px) { .theme-toggle { left: 16px; bottom: 16px; } }
   </style>
-</head>
-<body class="bg-white text-gray-900 font-sans">
-
-  <!-- NAVBAR -->
-  <header class="fixed top-2 md:top-4 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 md:px-0 md:w-auto">
-    <nav class="bg-white/90 backdrop-blur-md rounded-xl md:rounded-full shadow-2xl shadow-black/80 border border-gray-200/50 px-6 md:px-8 py-3 min-w-fit">
-      <div class="flex items-center justify-between md:justify-start md:space-x-4 whitespace-nowrap">
-        <!-- Logo -->
-        <a href="#home" class="flex-shrink-0">
-          <img src="logo2.png" alt="Jinger Logo" class="h-6 w-auto hover:opacity-80 transition-opacity duration-300" style="filter: drop-shadow(1px 1px 2px rgba(0,0,0,1));">
-        </a>
-        <!-- Navigation Links -->
-        <div class="flex space-x-3 md:space-x-4 text-xs md:text-sm font-medium">
-          <a href="#home" class="nav-link px-2 md:px-3 py-1">Home</a>
-          <a href="#about" class="nav-link px-2 md:px-3 py-1">About</a>
-          <a href="#projects" class="nav-link px-2 md:px-3 py-1">Projects</a>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <!-- MAIN CONTENT -->
-  <main>
-
-    <!-- HOME -->
-    <section id="home" class="min-h-screen flex items-center justify-center px-4 md:px-6 pt-20 md:pt-16 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden">
-      <!-- Circuit board pattern background -->
-      <div class="absolute inset-0 opacity-5">
-        <svg class="w-full h-full" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Circuit lines -->
-          <path d="M0 100 L200 100 L200 200 L400 200" stroke="#f97316" stroke-width="2"/>
-          <path d="M400 200 L600 200 L600 100 L800 100" stroke="#f97316" stroke-width="2"/>
-          <path d="M800 100 L1000 100 L1000 300 L1200 300" stroke="#f97316" stroke-width="2"/>
-          <path d="M0 400 L150 400 L150 500 L350 500 L350 600 L550 600" stroke="#f97316" stroke-width="2"/>
-          <path d="M550 600 L750 600 L750 400 L950 400 L950 500 L1200 500" stroke="#f97316" stroke-width="2"/>
-          <path d="M100 0 L100 200 L300 200 L300 400 L500 400 L500 800" stroke="#f97316" stroke-width="2"/>
-          <path d="M700 0 L700 300 L900 300 L900 600 L1100 600 L1100 800" stroke="#f97316" stroke-width="2"/>
-          <!-- Circuit nodes -->
-          <circle cx="200" cy="100" r="4" fill="#f97316"/>
-          <circle cx="200" cy="200" r="4" fill="#f97316"/>
-          <circle cx="400" cy="200" r="4" fill="#f97316"/>
-          <circle cx="600" cy="200" r="4" fill="#f97316"/>
-          <circle cx="600" cy="100" r="4" fill="#f97316"/>
-          <circle cx="800" cy="100" r="4" fill="#f97316"/>
-          <circle cx="1000" cy="100" r="4" fill="#f97316"/>
-          <circle cx="150" cy="400" r="4" fill="#f97316"/>
-          <circle cx="350" cy="500" r="4" fill="#f97316"/>
-          <circle cx="550" cy="600" r="4" fill="#f97316"/>
-          <circle cx="750" cy="600" r="4" fill="#f97316"/>
-          <circle cx="950" cy="400" r="4" fill="#f97316"/>
-          <circle cx="100" cy="200" r="4" fill="#f97316"/>
-          <circle cx="300" cy="200" r="4" fill="#f97316"/>
-          <circle cx="500" cy="400" r="4" fill="#f97316"/>
-          <circle cx="700" cy="300" r="4" fill="#f97316"/>
-          <circle cx="900" cy="300" r="4" fill="#f97316"/>
-          <circle cx="1100" cy="600" r="4" fill="#f97316"/>
-        </svg>
-      </div>
-      
-      <!-- Animated floating elements -->
-      <div class="absolute inset-0">
-        <div class="absolute top-20 left-20 w-2 h-2 bg-orange-500 rounded-full animate-ping opacity-60"></div>
-        <div class="absolute top-40 right-32 w-2 h-2 bg-orange-400 rounded-full animate-ping opacity-60" style="animation-delay: 1s;"></div>
-        <div class="absolute bottom-32 left-1/3 w-2 h-2 bg-orange-500 rounded-full animate-ping opacity-60" style="animation-delay: 2s;"></div>
-        <div class="absolute bottom-40 right-20 w-2 h-2 bg-orange-400 rounded-full animate-ping opacity-60" style="animation-delay: 0.5s;"></div>
-      </div>
-      
-      <div class="max-w-6xl mx-auto relative z-10">
-        <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
-          <!-- Left Side - Hero Text -->
-          <div class="space-y-6 md:space-y-8 text-center md:text-left">
-            <div class="space-y-4 md:space-y-6">
-              <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
-                Jeppe Rønnow
-              </h1>
-              <div class="w-16 h-1 bg-orange-500 rounded-full mx-auto md:mx-0"></div>
-              <p class="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed">
-                Robotics Engineer | Autonomous Systems | Machine Vision
-              </p>
-              <div class="text-orange-600 font-mono text-xs sm:text-sm bg-gray-50 px-3 py-2 rounded-lg inline-block">
-                &gt; Designing intelligent systems that think, see, and act
-              </div>
-            </div>
-            
-            <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
-              <a href="#about" class="bg-orange-500 hover:bg-orange-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-medium transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/25 text-center">
-                Learn More
-              </a>
-              <a href="#projects" class="border-2 border-orange-500 hover:bg-orange-500 text-orange-500 hover:text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-medium transition-all duration-300 hover:transform hover:-translate-y-1 text-center">
-                View Projects
-              </a>
-            </div>
-          </div>
-
-          <!-- Right Side - Logo -->
-          <div class="flex justify-center order-first md:order-last">
-            <div class="relative">
-              <!-- Main logo element -->
-              <div class="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl shadow-2xl shadow-orange-500/20 flex items-center justify-center relative overflow-hidden">
-                <!-- Circuit pattern overlay -->
-                <div class="absolute inset-0 opacity-20">
-                  <svg class="w-full h-full" viewBox="0 0 100 100" fill="none">
-                    <path d="M10 10 L90 10 L90 90 L10 90 Z" stroke="white" stroke-width="1" fill="none"/>
-                    <path d="M30 10 L30 90" stroke="white" stroke-width="0.5"/>
-                    <path d="M50 10 L50 90" stroke="white" stroke-width="0.5"/>
-                    <path d="M70 10 L70 90" stroke="white" stroke-width="0.5"/>
-                    <path d="M10 30 L90 30" stroke="white" stroke-width="0.5"/>
-                    <path d="M10 50 L90 50" stroke="white" stroke-width="0.5"/>
-                    <path d="M10 70 L90 70" stroke="white" stroke-width="0.5"/>
-                  </svg>
-                </div>
-                <img src="logo.png" alt="Jeppe Rønnow Logo" class="w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 object-contain rounded-full z-10">
-              </div>
-              
-              <!-- Tech elements around -->
-              <div class="absolute -top-4 md:-top-6 -left-4 md:-left-6 w-10 h-10 md:w-12 md:h-12 bg-white border-2 border-orange-500 rounded-lg flex items-center justify-center shadow-lg">
-                <span class="text-orange-500 text-xs font-mono font-bold">C++</span>
-              </div>
-              <div class="absolute -bottom-4 md:-bottom-6 -right-4 md:-right-6 w-10 h-10 md:w-12 md:h-12 bg-white border-2 border-orange-500 rounded-lg flex items-center justify-center shadow-lg">
-                <span class="text-orange-500 text-xs font-mono font-bold">ML</span>
-              </div>
-              <div class="absolute top-12 md:top-16 -right-8 md:-right-12 w-10 h-10 md:w-12 md:h-12 bg-white border-2 border-orange-500 rounded-lg flex items-center justify-center shadow-lg">
-                <span class="text-orange-500 text-xs font-mono font-bold">CV</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about" class="min-h-screen py-12 md:py-20">
-      <div class="max-w-6xl mx-auto px-4 md:px-6">
-        <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-start">
-          <!-- Left Side - Text Content -->
-          <div class="space-y-6 md:space-y-8">
-            <div>
-              <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4 md:mb-6">
-                I'm Jeppe. I live in Odense, Denmark, where I design stuff.
-              </h2>
-            </div>
-            
-            <div class="space-y-4 md:space-y-6 text-gray-600 text-base md:text-lg leading-relaxed">
-              <p>
-                I am a third-semester Bachelor's student in Robotics at the University of Southern Denmark, Odense. My interests lie at the intersection of electronics, software development, computer vision, and machine learning. I enjoy applying C++ programming and innovative problem-solving to design and develop intelligent robotic systems.
-              </p>
-              
-              <p>
-                I’ve been fascinated by technology for as long as I can remember, but my passion for robotics really began during high school, where I studied mechatronics. Even before that, I loved computers and creating things from scratch, whether it was tinkering with electronics or writing small programs.
-              </p>
-              
-              <p>
-                Since starting my Bachelor’s in Robotics at the University of Southern Denmark, I’ve been diving deeper into electronics, software development in C++, computer vision, and machine learning. I’ve worked on several projects that challenged me to combine these skills, from building robotic arms to developing vision systems that can interpret and interact with the environment.
-              </p>
-              
-              <p>
-                Looking ahead, I aim to continue advancing in machine learning and explore how intelligent systems can be designed to solve real-world problems, pushing the boundaries of what autonomous robots can achieve.
-              </p>
-            </div>
-          </div>
-
-          <!-- Right Side - Image and Social Links -->
-          <div class="space-y-6 md:space-y-8">
-            <!-- Profile Image -->
-            <div class="relative">
-              <div class="w-full max-w-sm md:max-w-md mx-auto">
-                <img src="mig.png" alt="Jinger Profile" class="w-full h-64 sm:h-80 md:h-96 object-cover object-top rounded-2xl shadow-2xl bg-gray-200">
-              </div>
-            </div>
-
-            <!-- Social Links -->
-            <div class="max-w-sm md:max-w-md mx-auto space-y-3 md:space-y-4">
-              <a href="https://github.com/JeppeRonnow" target="_blank" class="flex items-center space-x-3 text-gray-600 hover:text-gray-900 transition-colors group">
-                <svg class="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.523 2 12 2z" clip-rule="evenodd"/>
-                </svg>
-                <span class="group-hover:underline text-sm md:text-base">Follow on GitHub</span>
-              </a>
-
-              <a href="https://www.linkedin.com/in/jeppe-r%C3%B8nnow-b06607279/" target="_blank" class="flex items-center space-x-3 text-gray-600 hover:text-gray-900 transition-colors group">
-                <svg class="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                </svg>
-                <span class="group-hover:underline text-sm md:text-base">Follow on LinkedIn</span>
-              </a>
-
-              <a href="mailto:jinger@email.com" class="flex items-center space-x-3 text-gray-600 hover:text-gray-900 transition-colors group">
-                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                </svg>
-                <span class="group-hover:underline text-sm md:text-base">jepperw@gmail.com</span>
-              </a>
-
-              <a href="mailto:jeroe24@student.sdu.dk" class="flex items-center space-x-3 text-gray-600 hover:text-gray-900 transition-colors group">
-                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
-                </svg>
-                <span class="group-hover:underline text-sm md:text-base">jeroe24@student.sdu.dk</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="projects" class="min-h-screen bg-gray-50 py-12 md:py-20 relative overflow-hidden">
-      <div class="max-w-6xl mx-auto px-4 md:px-6 relative z-10">
-        <!-- Enhanced Projects Header -->
-        <div class="text-center mb-12 md:mb-16">
-          <div class="inline-flex items-center space-x-3 mb-6">
-            <div class="w-8 h-8 md:w-10 md:h-10 bg-orange-500 rounded-lg flex items-center justify-center">
-              <span class="text-white text-lg md:text-xl">🔧</span>
-            </div>
-            <div class="text-orange-600 font-mono text-sm md:text-base bg-orange-50 px-3 py-1 rounded-lg">
-              &gt; portfolio.showcase()
-            </div>
-          </div>
-          
-          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 md:mb-6">
-            Featured Projects
-          </h2>
-          
-          <div class="w-20 md:w-24 h-1 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full mx-auto mb-4 md:mb-6"></div>
-          
-          <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            A collection of hobby- and semesterprojects exploring robotics, computer vision, and autonomous systems through hands-on engineering.
-          </p>
-        </div>
-        
-        <div id="project-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"></div>
-      </div>
-    </section>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="bg-white border-t border-gray-200 py-8 md:py-12">
-    <div class="max-w-6xl mx-auto px-4 md:px-6">
-      <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-        <!-- Navigation Links -->
-        <nav class="flex space-x-6 md:space-x-8 text-gray-600 text-sm md:text-base">
-          <a href="#about" class="hover:text-gray-900 transition-colors">About</a>
-          <a href="#projects" class="hover:text-gray-900 transition-colors">Projects</a>
-        </nav>
-        
-        <!-- Copyright -->
-        <p class="text-gray-400 text-xs md:text-sm text-center">
-          © 2025 Jeppe Rønnow. All rights reserved.
-        </p>
-      </div>
-    </div>
-  </footer>
 
   <script>
-    // Markdown project files
+    try {
+      if (localStorage.getItem("theme") === "dark") {
+        document.documentElement.classList.add("theme-dark-preload");
+      }
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <main class="page">
+    <header class="masthead">
+      <h1 class="name">Jeppe Rønnow</h1>
+      <p class="role">Robotics engineer</p>
+      <p class="now"><b>Now</b> B.Sc. Robot Systems at SDU, Odense — fifth semester.</p>
+      <p class="now"><b>Speaks</b> Danish, English.</p>
+    </header>
+
+    <section>
+      <div class="portrait">
+        <img src="mig.png" alt="Jeppe Rønnow" />
+      </div>
+      <p>
+        I am a fifth-semester Robot Systems BSc in Engineering student at SDU, working across electronics, software, computer vision, and control systems. My experience includes developing for robotic arms, mobile platforms, and vision systems. I program in C and C++ using ROS2, FreeRTOS, and OpenCV, with a focus on expanding into machine learning.
+      </p>
+    </section>
+
+    <section>
+      <h2>Work</h2>
+      <ul class="project-list" id="project-list"></ul>
+    </section>
+
+    <section>
+      <h2>Elsewhere</h2>
+      <ul class="contact">
+        <li><a href="mailto:jepperw@gmail.com">jepperw@gmail.com</a></li>
+        <li><a href="mailto:jeroe24@student.sdu.dk">jeroe24@student.sdu.dk</a></li>
+        <li><a href="https://github.com/JeppeRonnow" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/jeppe-r%C3%B8nnow-b06607279/" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </section>
+
+    <footer>
+      <span>Odense, Denmark</span>
+      <span>© 2026</span>
+    </footer>
+
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 2v2 M12 20v2 M4.93 4.93l1.41 1.41 M17.66 17.66l1.41 1.41 M2 12h2 M20 12h2 M4.93 19.07l1.41-1.41 M17.66 6.34l1.41-1.41" />
+      </svg>
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z" />
+      </svg>
+    </button>
+  </main>
+
+  <div id="modal-root"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    // ============================================================
+    // PROJECT FILES — same list as your old index.html.
+    // Add new .md files here to have them appear automatically.
+    // ============================================================
     const projectFiles = [
       'projects/robot-arm-2025.md',
       'projects/mobile-robot-2024.md',
-      
     ];
 
-    const container = document.getElementById('project-list');
+    const list = document.getElementById("project-list");
 
-    projectFiles.forEach((file, index) => {
+    // Hover preview
+    const preview = document.createElement("div");
+    preview.className = "preview";
+    preview.innerHTML = `<img alt="" />`;
+    document.body.appendChild(preview);
+    const previewImg = preview.querySelector("img");
+
+    function positionPreview(rowEl) {
+      const r = rowEl.getBoundingClientRect();
+      preview.style.top = (r.top + r.height / 2 - 80) + "px";
+      preview.style.left = "calc(50% + 340px)";
+    }
+
+    // ============================================================
+    // Parse each .md file and build a list row
+    // ============================================================
+    projectFiles.forEach((file) => {
       fetch(file)
-        .then(res => res.text())
+        .then(res => { if (!res.ok) throw new Error(res.status); return res.text(); })
         .then(md => {
-          // Parse markdown to extract info
           const lines = md.split('\n');
-          const title = lines[0].replace('# ', '');
-          
-          // Extract year from filename (e.g., "projects/robot-arm-2025.md" -> "2025")
+
+          // Title: first # heading
+          const title = lines[0].replace(/^#+\s*/, '').trim();
+
+          // Year: from filename, e.g. robot-arm-2025.md → 2025
           const yearMatch = file.match(/-(\d{4})\.md$/);
           const year = yearMatch ? yearMatch[1] : '';
-          
-          // Extract first image from markdown
-          let cardImage = null;
-          const imageRegex = /!\[\[([^\]|]+)(?:\|(\d+))?\]\]/; // Matches ![[image.png]] or ![[image.png|300]]
-          const standardImageRegex = /!\[.*?\]\(([^)]+)\)/; // Matches ![alt](image.png)
-          
+
+          // First image in the file (wiki-style ![[img]] or standard ![](img))
+          let thumb = null;
+          const wikiRe = /!\[\[([^\]|]+)(?:\|\d+)?\]\]/;
+          const stdRe  = /!\[.*?\]\(([^)]+)\)/;
           for (const line of lines) {
-            const wikiMatch = line.match(imageRegex);
-            const standardMatch = line.match(standardImageRegex);
-            
-            if (wikiMatch) {
-              // Convert wiki-style image path to relative path
-              cardImage = `projects/${wikiMatch[1]}`;
-              break;
-            } else if (standardMatch) {
-              cardImage = standardMatch[1];
-              break;
-            }
+            const wm = line.match(wikiRe);
+            const sm = line.match(stdRe);
+            if (wm) { thumb = `projects/${wm[1]}`; break; }
+            if (sm) { thumb = sm[1]; break; }
           }
-          
-          // Get description - extract text from beginning until first period
-          let description = '';
-          for (const line of lines) {
-            // Skip title, empty lines, and markdown formatting lines
-            if (line.startsWith('# ') || line.trim() === '' || line.startsWith('**') || line.startsWith('![')) {
-              continue;
-            }
-            // Add this line to description
-            description += (description ? ' ' : '') + line.trim();
-            // Stop at first period
-            if (description.includes('.')) {
-              description = description.substring(0, description.indexOf('.') + 1);
-              break;
-            }
+
+          // Build list row
+          const li = document.createElement("li");
+          const a  = document.createElement("a");
+          a.href = "#";
+          a.innerHTML = `<span>${title}</span><span class="year">${year}</span>`;
+
+          a.addEventListener("click", (e) => { e.preventDefault(); openModal(title, year, md); });
+
+          if (thumb) {
+            a.addEventListener("mouseenter", () => {
+              previewImg.src = thumb;
+              positionPreview(a);
+              preview.classList.add("visible");
+            });
+            a.addEventListener("mousemove", () => positionPreview(a));
+            a.addEventListener("mouseleave", () => preview.classList.remove("visible"));
+          } else {
+            a.addEventListener("mouseenter", () => preview.classList.remove("visible"));
           }
-          
-          // Create card
-          const card = document.createElement('div');
-          card.className = "bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2 overflow-hidden";
-          
-          // Create image content
-          const imageContent = cardImage 
-            ? `<img src="${cardImage}" alt="${title}" class="w-full h-48 object-cover">`
-            : `<div class="h-48 bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center">
-                 <div class="text-white text-6xl opacity-20">🤖</div>
-               </div>`;
-          
-          card.innerHTML = `
-            ${imageContent}
-            <div class="p-6">
-              <div class="flex items-center justify-between mb-4">
-                <h3 class="text-xl font-bold text-gray-800">${title}</h3>
-                ${year ? `<span class="text-orange-500 text-sm font-medium bg-orange-50 px-2 py-1 rounded">${year}</span>` : ''}
-              </div>
-              <p class="text-gray-600 text-sm leading-relaxed">${description}</p>
-              <div class="mt-4 flex justify-between items-center">
-                <span class="text-orange-500 text-sm font-medium">Click to read more</span>
-                <svg class="w-5 h-5 text-orange-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-              </div>
-            </div>
-          `;
-          
-          // Add click handler for expansion with animation
-          card.addEventListener('click', (e) => {
-            // Add click animation
-            card.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-              card.style.transform = '';
-              showProjectModal(title, md);
-            }, 150);
-          });
-          
-          container.appendChild(card);
+
+          li.appendChild(a);
+          list.appendChild(li);
         })
-        .catch(err => console.error(`Error loading ${file}:`, err));
+        .catch(err => console.warn(`Could not load ${file}:`, err));
     });
 
-    // Modal function
-    function showProjectModal(title, markdown) {
-      const modal = document.createElement('div');
-      modal.className = "fixed inset-0 bg-black bg-opacity-0 z-50 flex items-center justify-center p-2 md:p-4 transition-all duration-300";
-      
-      // Process markdown to handle images properly
-      const processedMarkdown = markdown.replace(
-        /!\[\[([^\]|]+)(?:\|(\d+))?\]\]/g, 
-        (match, imagePath, width) => {
-          if (width) {
-            return `![](projects/${imagePath}){width="${width}px"}`;
-          }
-          return `![](projects/${imagePath})`;
-        }
+    // ============================================================
+    // MODAL — renders the full markdown content
+    // ============================================================
+    const modalRoot = document.getElementById("modal-root");
+
+    function renderMarkdown(md) {
+      // Convert wiki-style ![[image.png]] to standard markdown before parsing
+      const converted = md.replace(
+        /!\[\[([^\]|]+)(?:\|(\d+))?\]\]/g,
+        (_, path, w) => w ? `![](projects/${path})` : `![](projects/${path})`
       );
-      
-      modal.innerHTML = `
-        <div class="bg-white rounded-lg md:rounded-2xl w-full max-w-4xl max-h-[95vh] md:max-h-[90vh] overflow-y-auto shadow-2xl transform scale-75 opacity-0 transition-all duration-300">
-          <!-- Hero Header -->
-          <div class="relative h-16 sm:h-24 md:h-32 bg-gradient-to-br from-orange-500 via-orange-400 to-yellow-300 rounded-t-lg md:rounded-t-2xl overflow-hidden">
-            <div class="absolute inset-0 bg-black bg-opacity-20"></div>
-            <button class="absolute top-2 md:top-3 right-2 md:right-3 text-white hover:text-orange-200 text-xl md:text-2xl transition-all duration-200 hover:rotate-90 transform hover:scale-110 z-10 w-6 h-6 md:w-8 md:h-8 flex items-center justify-center" onclick="closeModal(this)">×</button>
-            <div class="absolute bottom-2 md:bottom-3 left-2 md:left-3 text-white">
-              <h2 class="text-sm sm:text-lg md:text-2xl font-bold mb-1 drop-shadow-lg">${title}</h2>
-              <div class="w-8 md:w-12 h-0.5 bg-white rounded-full opacity-80"></div>
-            </div>
-          </div>
-          
-          <!-- Content Area -->
-          <div class="p-4 md:p-8">
-            <article class="max-w-none">
-              ${formatBlogContent(processedMarkdown)}
-            </article>
-          </div>
+      // Remove the first H1 (already shown as modal title)
+      const withoutTitle = converted.replace(/^#[^#][^\n]*\n/, '');
+      return marked.parse(withoutTitle);
+    }
+
+    function openModal(title, year, md) {
+      modalRoot.innerHTML = `
+        <div class="modal-backdrop" id="mb">
+          <article class="modal">
+            <button class="modal-close" aria-label="Close">close</button>
+            <h2>${title}</h2>
+            ${year ? `<p class="modal-year">${year}</p>` : ''}
+            ${renderMarkdown(md)}
+          </article>
         </div>
       `;
-      
-      document.body.appendChild(modal);
-      
-      // Prevent body scroll when modal is open
-      document.body.style.overflow = 'hidden';
-      
-      // Animate in
-      setTimeout(() => {
-        modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        const modalContent = modal.querySelector('div > div');
-        modalContent.style.transform = 'scale(1)';
-        modalContent.style.opacity = '1';
-      }, 10);
-      
-      // Close on backdrop click
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          closeModal(modal.querySelector('button'));
-        }
+      document.body.style.overflow = "hidden";
+      const mb = document.getElementById("mb");
+      requestAnimationFrame(() => mb.classList.add("open"));
+      mb.addEventListener("click", (e) => {
+        if (e.target === mb || e.target.classList.contains("modal-close")) closeModal();
       });
+      document.addEventListener("keydown", escClose);
     }
 
-    // Format blog content with custom styling
-    function formatBlogContent(markdown) {
-      const html = marked.parse(markdown);
-      
-      return html
-        .replace(/<h1[^>]*>.*?<\/h1>/, '') // Remove the first H1 header (duplicate title)
-        .replace(/<h2[^>]*>/g, '<h2 class="text-xl md:text-2xl font-semibold text-gray-800 mt-6 md:mt-8 mb-3 md:mb-4">')
-        .replace(/<h3[^>]*>/g, '<h3 class="text-lg md:text-xl font-semibold text-gray-700 mt-4 md:mt-6 mb-2 md:mb-3">')
-        .replace(/<p[^>]*>/g, '<p class="text-gray-600 leading-relaxed mb-3 md:mb-4 text-sm md:text-lg">')
-        .replace(/<strong[^>]*>/g, '<strong class="font-semibold text-orange-600">')
-        .replace(/<ul[^>]*>/g, '<ul class="space-y-1 md:space-y-2 mb-4 md:mb-6">')
-        .replace(/<li[^>]*>/g, '<li class="flex items-start"><span class="text-orange-500 mr-2 md:mr-3 mt-1">•</span><span class="text-gray-600 leading-relaxed text-sm md:text-base">')
-        .replace(/<\/li>/g, '</span></li>')
-        .replace(/<img([^>]*)>/g, '<div class="my-4 md:my-8 flex justify-center"><img$1 class="max-w-xs md:max-w-sm rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"></div>')
-        .replace(/<code[^>]*>/g, '<code class="bg-gray-100 text-orange-600 px-1 md:px-2 py-1 rounded font-mono text-xs md:text-sm">');
+    function escClose(e) { if (e.key === "Escape") closeModal(); }
+
+    function closeModal() {
+      const mb = document.getElementById("mb");
+      if (!mb) return;
+      mb.classList.remove("open");
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", escClose);
+      setTimeout(() => { modalRoot.innerHTML = ""; }, 300);
     }
 
-    // Close modal function with animation
-    function closeModal(button) {
-      const modal = button.closest('.fixed');
-      const modalContent = modal.querySelector('div > div');
-      
-      // Restore body scroll
-      document.body.style.overflow = '';
-      
-      modal.style.backgroundColor = 'rgba(0, 0, 0, 0)';
-      modalContent.style.transform = 'scale(0.75)';
-      modalContent.style.opacity = '0';
-      
-      setTimeout(() => {
-        modal.remove();
-      }, 300);
-    }
-
-    // Smooth scroll without URL hash change
-    document.addEventListener('DOMContentLoaded', function() {
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          
-          const targetId = this.getAttribute('href').substring(1);
-          const targetElement = document.getElementById(targetId);
-          
-          if (targetElement) {
-            targetElement.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
-          }
-        });
+    // ============================================================
+    // THEME TOGGLE
+    // ============================================================
+    (function () {
+      const body = document.body;
+      if (document.documentElement.classList.contains("theme-dark-preload")) {
+        body.classList.add("dark");
+        document.documentElement.classList.remove("theme-dark-preload");
+      }
+      document.getElementById("theme-toggle").addEventListener("click", () => {
+        body.classList.toggle("dark");
+        try { localStorage.setItem("theme", body.classList.contains("dark") ? "dark" : "light"); } catch (e) {}
       });
-    });
+    })();
   </script>
-
 </body>
 </html>
