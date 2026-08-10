@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jeppe Rønnow</title>
-  <link rel="icon" type="image/png" href="assets/logocirc.png" />
+  <link rel="icon" type="image/png" href="logocirc.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -123,7 +123,7 @@
     /* ====== Portrait ====== */
     .portrait {
       float: right;
-      width: 168px;
+      width: 196px;
       height: auto;
       margin: 4px 0 16px 28px;
       shape-outside: margin-box;
@@ -236,6 +236,8 @@
     .modal-close:hover { color: var(--accent); }
     .modal h2 { font-size: 22px; font-weight: 500; margin: 0 0 4px; }
     .modal .modal-year { font-style: italic; color: var(--ink-mute); margin: 0 0 28px; font-size: 17px; }
+    .modal .demo-link { border-bottom: 1px solid var(--ink-mute); font-style: normal; transition: border-color 180ms ease, color 180ms ease; }
+    .modal .demo-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
     .modal p { color: var(--ink); margin: 0 0 1em; font-size: 18px; line-height: 1.7; }
     .modal h3 { font-size: 17px; font-weight: 500; margin: 1.8em 0 0.4em; color: var(--ink); }
     .modal ul { list-style: none; padding: 0; margin: 0 0 1.2em; }
@@ -369,8 +371,8 @@
   <main class="page">
     <header class="masthead">
       <h1 class="name">Jeppe Rønnow</h1>
-      <p class="role">Robotics engineer</p>
-      <p class="now"><b>Now</b> B.Sc. Robot Systems at SDU, Odense — fifth semester.</p>
+      <p class="role">Robot systems</p>
+      <p class="now"><b>Now</b> B.Sc. Robot Systems at SDU, Odense (fifth semester).</p>
       <p class="now"><b>Speaks</b> Danish, English.</p>
     </header>
 
@@ -379,12 +381,12 @@
         <img src="mig.png" alt="Jeppe Rønnow" />
       </div>
       <p>
-        I am a fifth-semester Robot Systems BSc in Engineering student at SDU, working across electronics, software, computer vision, and control systems. My experience includes developing for robotic arms, mobile platforms, and vision systems. I program in C and C++ using ROS2, FreeRTOS, and OpenCV, with a focus on expanding into machine learning.
+        I am a fifth-semester Robot Systems BSc in Engineering student at SDU, working across electronics, software, computer vision, and control systems. My experience includes developing for robotic arms, mobile platforms, and vision systems. I program in C and C++ using ROS2, FreeRTOS, and OpenCV.
       </p>
     </section>
 
     <section>
-      <h2>Work</h2>
+      <h2>Projects</h2>
       <ul class="project-list" id="project-list"></ul>
     </section>
 
@@ -423,6 +425,8 @@
     // Add new .md files here to have them appear automatically.
     // ============================================================
     const projectFiles = [
+      'projects/control-engineering-robotic-systems-2026.md',
+      'projects/mobile-robot-systems-2025.md',
       'projects/robot-arm-2025.md',
       'projects/mobile-robot-2024.md',
     ];
@@ -469,13 +473,20 @@
             if (sm) { thumb = sm[1]; break; }
           }
 
+           // Demo video URL
+          let demoUrl = null;
+          for (const line of lines) {
+            const dm = line.match(/^\*\*Demo video:\*\*\s*(.+)/);
+            if (dm) { demoUrl = dm[1].trim(); break; }
+          }
+
           // Build list row
           const li = document.createElement("li");
           const a  = document.createElement("a");
           a.href = "#";
           a.innerHTML = `<span>${title}</span><span class="year">${year}</span>`;
 
-          a.addEventListener("click", (e) => { e.preventDefault(); openModal(title, year, md); });
+          a.addEventListener("click", (e) => { e.preventDefault(); openModal(title, year, md, demoUrl); });
 
           if (thumb) {
             a.addEventListener("mouseenter", () => {
@@ -511,13 +522,13 @@
       return marked.parse(withoutTitle);
     }
 
-    function openModal(title, year, md) {
+    function openModal(title, year, md, demoUrl) {
       modalRoot.innerHTML = `
         <div class="modal-backdrop" id="mb">
           <article class="modal">
             <button class="modal-close" aria-label="Close">close</button>
             <h2>${title}</h2>
-            ${year ? `<p class="modal-year">${year}</p>` : ''}
+            <p class="modal-year">${year}${demoUrl ? ` &middot; <a href="${demoUrl}" target="_blank" rel="noopener" class="demo-link">Watch demo &rarr;</a>` : ''}</p>
             ${renderMarkdown(md)}
           </article>
         </div>

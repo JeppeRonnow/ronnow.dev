@@ -2,6 +2,8 @@
 
 **Technologies:** Python, Micropython
 
+**Demo video:** https://bit.ly/47UPwd7
+
 This project was developed as part of a competition at the University of Southern Denmark (SDU), where the objective was to design and build autonomous line-following robots.
 
 ![[img/bil.jpg]]
